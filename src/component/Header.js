@@ -1,16 +1,31 @@
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ handleToken, userToken }) => {
   return (
     <div>
       <p>logo</p>
-      <Link to="/login">
-        <button>Se connecter</button>
+      {!userToken ? (
+        <>
+          {" "}
+          <Link to="/login">
+            <button>Se connecter</button>
+          </Link>
+          <Link to="/signup">
+            <button>S'inscrire</button>
+          </Link>{" "}
+        </>
+      ) : (
+        <button
+          onClick={() => {
+            handleToken(null);
+          }}
+        >
+          Déconnection
+        </button>
+      )}
+      <Link to="/publish">
+        <button>Vends tes articles</button>
       </Link>
-      <Link to="/signup">
-        <button>S'inscrire</button>
-      </Link>
-      <button>Déconnection</button>
     </div>
   );
 };

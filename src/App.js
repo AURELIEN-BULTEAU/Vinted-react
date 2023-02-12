@@ -1,25 +1,30 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Cookies from "js-cookie";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Offers from "./pages/Offers";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Publish from "./pages/Publish";
 
 import Header from "./component/Header";
 
 function App() {
+  const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
   const handleToken = (token) => {
     if (token) {
-      Cookies.set("userToken", token, { expire: 7 });
+      Cookies.set("userToken", token, { expires: 7 });
+      setUserToken(token);
     } else {
       Cookies.remove("userToken");
+      setUserToken(null);
     }
   };
   return (
     <Router>
-      <Header handleToken={handleToken} />
+      <Header handleToken={handleToken} userToken={userToken} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/offer/:Id" element={<Offers />}></Route>
@@ -31,6 +36,7 @@ function App() {
           path="/login"
           element={<Login handleToken={handleToken} />}
         ></Route>
+        <Route path="/publish" element={<Publish userToken={userToken} />} />
       </Routes>
     </Router>
   );

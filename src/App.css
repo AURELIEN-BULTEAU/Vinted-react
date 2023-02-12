@@ -8,5 +8,13 @@
   height: 70vh;
 }
 .signup-container input {
-  width: 30%;
+  width: 25%;
+}
+.file-container {
+  width: 300px;
+  height: 80px;
+  border: solid green 2px;
+}
+.file-container input {
+  display: none;
 }

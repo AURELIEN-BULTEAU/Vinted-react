@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = ({ handleToken }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newsLetter, setNewsLetter] = useState(false);
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -14,8 +18,7 @@ const Signup = ({ handleToken }) => {
         { email, username, password, newsletter: newsLetter }
       );
       handleToken(response.data.token);
-
-      //   console.log(response.data);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -54,6 +57,7 @@ const Signup = ({ handleToken }) => {
           setNewsLetter(!newsLetter);
         }}
       />
+      <label htmlFor="newsletter">S'inscrire à notre newsletter</label>
       <input type="submit" value="S'inscrire" />
     </form>
   );
